@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">NeoSoftAssignMent</string>
+    <string name="login_">Login</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="Registration">Registration</string>
+
+    <string name="descending_order">Descending Order</string>
+    <string name="ascending_order">Ascending Order</string>
+    <string name="rs">\u20B9</string>
+    <string name="search_your_product">Search your product</string>
+    <string name="full_name">Full Name</string>
+</resources>
