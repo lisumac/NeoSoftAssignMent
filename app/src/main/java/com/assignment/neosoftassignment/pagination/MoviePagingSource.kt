@@ -8,15 +8,25 @@ import com.assignment.neosoftassignment.model.roomdataBase.MovieDao
 
 import kotlinx.coroutines.delay
 
-class MainPagingSource(
-    private val dao: MovieDao
-) : PagingSource<Int, MovieResponseItem>() {
+class MainPagingSource(private val dao: MovieDao, private  val search: String,private  val b: Boolean) : PagingSource<Int, MovieResponseItem>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResponseItem> {
         val page = params.key ?: 0
 
         return try {
             Log.d("MainPagingSource", "load: $page")
-            val entities = dao.getPagedList(params.loadSize, page * params.loadSize)
+            val entities = if (b){
+                dao.getSearchPagedList(params.loadSize, page * params.loadSize,search)
+
+            }else{
+                dao.getPagedList(params.loadSize, page * params.loadSize)
+
+            }
+          /*  val entities = dao.getPagedList(params.loadSize, page * params.loadSize)
+
+            val entitie = dao.getSearchPagedList(params.loadSize, page * params.loadSize,"yojiop")*/
+            Log.d("MainPagingSource", "load:List sera $entities")
+
+
             if (page != 0) delay(1000)
             LoadResult.Page(
                 data = entities,

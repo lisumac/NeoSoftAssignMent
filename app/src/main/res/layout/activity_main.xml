@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color">
-<!--AEBDCA-->
+        <!--AEBDCA-->
         <TextView
             android:id="@+id/tv_sort_item"
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:gravity="center"
             android:hint="@string/search_your_movie"
             android:padding="8dp"
-
+            android:singleLine="true"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             app:endIconMode="clear_text"
@@ -99,11 +99,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-             />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

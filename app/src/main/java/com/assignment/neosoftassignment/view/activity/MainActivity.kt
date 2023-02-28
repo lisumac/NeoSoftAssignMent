@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner {
 
     private fun setUpRecyclerview() {
         binding.progressBar.progress = 8
+        viewModel.searchdata("")
         manager = LinearLayoutManager(this)
         binding.rvMovieList.layoutManager = manager
         /* viewModel.movieListLiveData.observe(this) { it ->
@@ -75,14 +76,7 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner {
 
 
 
-        /*viewModel.getpagedata()?.observe(this) { moviesPagedList ->
-            Log.e("TAG", "onChanged: arrray" + moviesPagedList.size)
-            moviesAdapter = MoviesPagedListAdapter()
-            moviesAdapter!!.onItemOnClickListner = this
-            moviesAdapter!!.submitList(moviesPagedList)
-            binding.rvMovieList.adapter = moviesAdapter
-            movies = moviesPagedList
-        }*/
+
 
 
 
@@ -91,21 +85,16 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner {
         )
 
         lifecycleScope.launch {
-            viewModel.getpagedata.collectLatest {
+           /* viewModel.getpagedata.collectLatest {
+                moviesAdapter.submitData(it)
+            }*/
+            Log.e("TAG", "setUpRecyclerview: ", )
+            viewModel.flowsearch.collectLatest {
                 moviesAdapter.submitData(it)
             }
+
         }
-        /*viewModel.getpagedata?.observe(this)  { pagedList ->
-           // adapter.submitList(pagedList)
-            Log.e("TAG", "onChanged: arrray" + pagedList.size)
-            pagedList.addWeakCallback(null, object: PagedList.Callback() {
-                override fun onChanged(position: Int, count: Int) {}
-                override fun onInserted(position: Int, count: Int) {
-                    println("count: $count")
-                }
-                override fun onRemoved(position: Int, count: Int) {}
-            })
-        }*/
+
     }
 
     private fun onClicklistner() {
@@ -114,7 +103,8 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {
-                adapter.filterList(movieList)
+                viewModel.searchdata(editable.toString().trim())
+               // adapter.filterList(movieList)
 
             }
         })
