@@ -8,4 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_color">#AE87B4</color>
+    <color name="search_primary">#CA45DF</color>
+    <color name="background_color">#E5C2EA</color>
+    <color name="list_background">#AEBDCA</color>
+    <color name="card_background">#7895B2</color>
+
+    <color name="txtColorOne">#E8DFCA</color>
+    <color name="txtColorTitle">#F5EFE6</color>
+    <color name="iconColor">#2B4865</color>
 </resources>

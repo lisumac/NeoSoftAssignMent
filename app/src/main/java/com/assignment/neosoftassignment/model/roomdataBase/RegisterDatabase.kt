@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 // autoMigrations = [AutoMigration(from = 1, to = 2)],
 @Database(entities = [RegisterEntity::class],
-    exportSchema = false,version = 1)
+    exportSchema = false,version = 2)
 @Singleton
 abstract class RegisterDatabase : RoomDatabase() {
 

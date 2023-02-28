@@ -4,17 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import com.assignment.neosoftassignment.onClickListner.OnClickListnerLogin
 import com.assignment.jetpectcompent.utills.toast
-import com.assignment.neosoftassignment.viewModel.LoginViewModel
 import com.assignment.neosoftassignment.R
 import com.assignment.neosoftassignment.databinding.ActivityLoginBinding
+import com.assignment.neosoftassignment.onClickListner.OnClickListnerLogin
+import com.assignment.neosoftassignment.viewModel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +21,9 @@ class LoginActivity : AppCompatActivity(), OnClickListnerLogin {
     val viewModel: LoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /* setContentView(R.layout.activity_login) */
+        if (supportActionBar != null) {
+            supportActionBar!!.hide();
+        }
         inIt()
         setupListeners()
         goToMovieList()
@@ -34,6 +34,8 @@ class LoginActivity : AppCompatActivity(), OnClickListnerLogin {
             if (hasFinished == true) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+            } else {
+                toast(getString(R.string.register_))
             }
         }
 
@@ -57,7 +59,7 @@ class LoginActivity : AppCompatActivity(), OnClickListnerLogin {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            // checking ids of each text field and applying functions accordingly.
+            /* checking ids of each text field and applying functions accordingly. */
             when (view.id) {
 
                 R.id.email -> {
@@ -75,12 +77,10 @@ class LoginActivity : AppCompatActivity(), OnClickListnerLogin {
     override fun registrationButtonOnclick() {
     }
 
-    override fun loginButtonButtonOnclick() {
-        if (isValidate()) {
-            viewModel.login()
-        } else {
-            this.toast("Please enter proper login details")
-        }
+    override fun loginButtonButtonOnclick() = if (isValidate()) {
+        viewModel.login(binding.email.text.toString().trim(), binding.password.text.toString().trim())
+    } else {
+        this.toast("Please enter proper login details")
     }
 
     override fun login() {

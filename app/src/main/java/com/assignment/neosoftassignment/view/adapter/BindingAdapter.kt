@@ -13,6 +13,7 @@ object BindingAdapter {
         val slideAnimation = AnimationUtils.loadAnimation(view.context, R.anim.silde_side)
         view.startAnimation(slideAnimation)
     }*/
+    @JvmStatic
     @androidx.databinding.BindingAdapter("animation")
     fun loadAnimation(view: ImageView, boolean: Boolean) {
         val slideAnimation = AnimationUtils.loadAnimation(view.context, R.anim.silde_side)

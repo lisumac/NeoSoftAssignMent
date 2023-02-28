@@ -12,6 +12,8 @@ import com.assignment.neosoftassignment.model.responseModel.loginAndRegistration
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -105,8 +107,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Register
         password: TextInputEditText
     ) {
         val userDetailsEntity = RegisterEntity(0,userName.text.toString().trim(),email.text.toString(),password.text.toString())
-        viewModelScope.launch {
-            delay(1000)
+        CoroutineScope(Dispatchers.IO).launch {
             repository.insert(userDetailsEntity)
         }
 

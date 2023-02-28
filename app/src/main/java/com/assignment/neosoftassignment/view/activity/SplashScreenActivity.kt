@@ -19,7 +19,9 @@ class SplashScreenActivity : AppCompatActivity() {
     lateinit var binding: ActivitySplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        if (supportActionBar != null) {
+            supportActionBar!!.hide();
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen)
         binding.splashVm = viewModel
 

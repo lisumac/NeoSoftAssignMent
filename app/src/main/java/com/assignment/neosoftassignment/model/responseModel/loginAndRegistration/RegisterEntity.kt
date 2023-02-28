@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey
 data class RegisterEntity(
 
     @PrimaryKey(autoGenerate = true)
-    var userId: Int ,
+    var userId: Int,
     @ColumnInfo(name = "userName")
     var userName: String,
-    @ColumnInfo(name = "email")
+    @ColumnInfo(name = "email_login")
     var email: String,
     @ColumnInfo(name = "password_text")
     var passwrd: String

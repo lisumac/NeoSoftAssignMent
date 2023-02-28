@@ -1,23 +1,26 @@
 package com.assignment.neosoftassignment.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
+import com.assignment.neosoftassignment.Constants.movieList
 import com.assignment.neosoftassignment.R
 import com.assignment.neosoftassignment.databinding.MovieItemListLayoutBinding
+import com.assignment.neosoftassignment.model.responseModel.MovieResponse
 import com.assignment.neosoftassignment.model.responseModel.MovieResponseItem
 import com.assignment.neosoftassignment.onClickListner.OnItemOnClickListner
-
-class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
-    RecyclerView.Adapter<MovieListAdapter.PersonDetailsViewHolder>() {
+class MoviesPagedListAdapter: PagingDataAdapter<MovieResponseItem, MoviesPagedListAdapter.MoviesViewHolder>(DIFF_CALLBACK){
     lateinit var onItemOnClickListner: OnItemOnClickListner
     private var filteredProductNameList: List<MovieResponseItem>? = null
     lateinit var binding: MovieItemListLayoutBinding
-
-    class PersonDetailsViewHolder(private val binding: MovieItemListLayoutBinding) :
+    class MoviesViewHolder(private val binding: MovieItemListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -72,35 +75,36 @@ class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
 
     }
 
+    private val itemCallback: DiffUtil.ItemCallback<MovieResponseItem> =
+        object : DiffUtil.ItemCallback<MovieResponseItem>() {
+            override fun areItemsTheSame(oldItem: MovieResponseItem, newItem: MovieResponseItem): Boolean {
+                return oldItem.movieResponsePrimaryKey === newItem.movieResponsePrimaryKey
+            }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonDetailsViewHolder {
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: MovieResponseItem, newItem: MovieResponseItem): Boolean {
+                return oldItem.equals(newItem)
+            }
+        }
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieResponseItem>() {
+            override fun areItemsTheSame(oldItem: MovieResponseItem, newItem: MovieResponseItem): Boolean {
+                return oldItem == newItem
+            }
 
-        binding =
-            MovieItemListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PersonDetailsViewHolder(binding)
+            override fun areContentsTheSame(oldItem: MovieResponseItem, newItem: MovieResponseItem): Boolean {
+                return oldItem.movieResponsePrimaryKey == newItem.movieResponsePrimaryKey
+            }
+
+        }
+    }
+    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
+        val product = getItem(position)
+        product?.let { holder.bind(it, onItemOnClickListner, position) }
     }
 
-    override fun onBindViewHolder(holder: PersonDetailsViewHolder, position: Int) {
-        val product = movieList[position]
-        holder.bind(product, onItemOnClickListner, position)
-
-
-    }
-
-    override fun getItemCount(): Int {
-        return movieList.size
-    }
-
-    fun sortedList(movie_list: ArrayList<MovieResponseItem>) {
-
-        this.movieList = movie_list
-        notifyDataSetChanged()
-    }
-
-
-    fun filterList(filterdNames: ArrayList<MovieResponseItem>) {
-
-        this.movieList = filterdNames;
-        notifyDataSetChanged();
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
+        binding = MovieItemListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MoviesViewHolder(binding)
     }
 }

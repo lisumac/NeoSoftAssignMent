@@ -1,7 +1,7 @@
 package com.assignment.neosoftassignment.model.roomdataBase
 
+import androidx.paging.DataSource
 import androidx.room.*
-import com.assignment.neosoftassignment.model.responseModel.MovieResponse
 import com.assignment.neosoftassignment.model.responseModel.MovieResponseItem
 
 @Dao
@@ -13,9 +13,15 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(movies: List<MovieResponseItem>)
 
-  /*  @Delete
-    fun delete(movie: MovieResponseItem)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(moviesItemModel: MovieResponseItem)
 
-    @Delete
-    fun deleteAll(movie: List<MovieResponseItem>)*/
+    @Query("UPDATE movielist SET isFavourite=:isFav WHERE movieResponsePrimaryKey = :id")
+    fun update(isFav: Boolean?, id: Int)
+
+  /*  @Query("SELECT * FROM MovieList ORDER BY movieResponsePrimaryKey ASC")
+    fun getPagedListMovies(moviesItem: Int, offset: Int):List<MovieResponseItem>*/
+
+    @Query("SELECT * FROM movielist ORDER BY movieResponsePrimaryKey ASC LIMIT :limit OFFSET :offset")
+    suspend fun getPagedList(limit: Int, offset: Int): List<MovieResponseItem>
 }

@@ -37,6 +37,9 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -74,6 +77,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.2"
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.4.2"
+    implementation "androidx.room:room-rxjava2:2.4.2"
+
     implementation "androidx.fragment:fragment-ktx:1.5.5"
     // implementation "androidx.activity:activity-ktx:1.8.0-alpha01"
 //for gson
@@ -81,4 +86,8 @@ dependencies {
     implementation("io.coil-kt:coil:1.1.1")
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-}
+    /*paging*/
+    implementation "androidx.paging:paging-runtime:3.1.1"
+
+
+    implementation 'androidx.paging:paging-runtime:2.1.2'}

@@ -41,7 +41,8 @@ data class MovieResponseItem(
     var name: String,
     @TypeConverters(TrailorConverters::class)
     var trailer: Trailer? = null,
-    var url: String
+    var url: String,
+    var isFavourite: Boolean = false
 ) : Parcelable {
     companion object {
 
@@ -60,7 +61,8 @@ data class MovieResponseItem(
             keywords: String,
             name: String,
             trailer: Trailer,
-            url: String
+            url: String,
+            isFavourite:Boolean
         ) =
             MovieResponseItem(
                 movieResponsePrimaryKey ?: 0,
@@ -77,7 +79,7 @@ data class MovieResponseItem(
                 keywords ?: "",
                 name ?: "",
                 trailer ?: Trailer("", "", "", "", Thumbnail("", "")),
-                url ?: ""
+                url ?: "" ,isFavourite = false
 
             )
 

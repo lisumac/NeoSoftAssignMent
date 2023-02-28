@@ -1,23 +1,23 @@
 package com.assignment.neosoftassignment.viewModel
 
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.assignment.neosoftassignment.model.repository.RegisterRepository
 import com.assignment.jetpectcompent.utills.FieldValidator
-import com.assignment.neosoftassignment.model.responseModel.loginAndRegistration.RegisterEntity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel@Inject constructor(private val repository: RegisterRepository): ViewModel(),
+class LoginViewModel @Inject constructor(private val repository: RegisterRepository) : ViewModel(),
     Observable {
     @Bindable
     val inputUsername = MutableLiveData<String>()
@@ -28,6 +28,7 @@ class LoginViewModel@Inject constructor(private val repository: RegisterReposito
 
     val navigatetoUserDetails: LiveData<Boolean>
         get() = _navigatetoMovieDetails
+
     fun validateEmail(email: TextInputEditText, emailTextInputLayout: TextInputLayout): Boolean {
         if (email.text.toString().trim().isEmpty()) {
             emailTextInputLayout.error = "Please enter your email"
@@ -61,26 +62,34 @@ class LoginViewModel@Inject constructor(private val repository: RegisterReposito
         return true
     }
 
-     /*fun login() {
-        val usersNames = repository.getUserName(inputUsername.value.toString())
-        if (usersNames != null) {
-            if(usersNames.passwrd == inputPassword.value){
-                inputUsername.value = ""
-                inputPassword.value = ""
-                _navigatetoMovieDetails.value = true
-            }else{
-              //  _errorToastInvalidPassword.value = true
+    /*fun login() {
+       val usersNames = repository.getUserName(inputUsername.value.toString())
+       if (usersNames != null) {
+           if(usersNames.passwrd == inputPassword.value){
+               inputUsername.value = ""
+               inputPassword.value = ""
+               _navigatetoMovieDetails.value = true
+           }else{
+             //  _errorToastInvalidPassword.value = true
+           }
+       } else {
+         //  _errorToastUsername.value = true
+       }
+   }*/
+    fun login(email: String, password: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.e("TAG", "login:UserName $email")
+            val usersNames = email?.let { repository.getUserName(it) }
+            Log.e("TAG", "login:UserNameFromrepos $email")
+            if (usersNames != null) {
+                _navigatetoMovieDetails.postValue(usersNames?.passwrd == password)
+            } else {
+                _navigatetoMovieDetails.postValue(false)
             }
-        } else {
-          //  _errorToastUsername.value = true
+
         }
-    }*/
-    fun login() {
-        viewModelScope.launch {
-            delay(100)
-            val usersNames =  inputUsername.value?.let { repository.getUserName(it) }
-            _navigatetoMovieDetails.value = usersNames?.passwrd == inputPassword.value
-        }
+
+
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

@@ -14,7 +14,7 @@ interface RegisterDatabaseDao {
     @Query("SELECT * FROM Register_users_tables ORDER BY userId DESC")
     fun getAllUsers(): LiveData<List<RegisterEntity>>
 
-    @Query("SELECT * FROM Register_users_tables WHERE userName LIKE :userName")
-    suspend fun getUsername(userName: String): RegisterEntity?
+    @Query("SELECT * FROM Register_users_tables WHERE email_login LIKE :email ")
+    suspend fun getUsername(email: String): RegisterEntity?
 
 }

@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="splashVm"
-    type="com.assignment.neosoftassignment.viewModel.SplashViewModel" />
+
+        <variable
+            name="splashVm"
+            type="com.assignment.neosoftassignment.viewModel.SplashViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,15 +15,16 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient"
         tools:context=".view.activity.SplashScreenActivity">
-<!-- app:animation="@{true}"-->
+        <!-- app:animation="@{true}"-->
         <ImageView
             android:id="@+id/splashScreenImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:animation="@{true}"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/ic_baseline_movie_filter_24"
             app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,18 +13,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
-
+        android:background="@color/background_color">
+<!--AEBDCA-->
         <TextView
             android:id="@+id/tv_sort_item"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:drawableRight="@drawable/ic_baseline_sort_"
             android:gravity="center"
-            android:text="Sort"
+            android:text="@string/sort"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,26 +35,40 @@
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/tablayout_background"
             android:gravity="center"
-            android:hint="@string/search_your_product"
-            android:padding="4dp"
+            android:hint="@string/search_your_movie"
+            android:padding="8dp"
+
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="@+id/tv_sort_item"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_like_movie_list"
             app:layout_constraintStart_toEndOf="@+id/tv_sort_item"
 
             app:layout_constraintTop_toTopOf="@+id/tv_sort_item" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_like_movie_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_baseline_favorite_24"
+            app:layout_constraintBottom_toBottomOf="@+id/search_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/search_view"
+            app:layout_constraintTop_toTopOf="@+id/search_view" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/ns_scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +103,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+             />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

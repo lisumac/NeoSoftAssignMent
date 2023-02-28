@@ -9,6 +9,11 @@
     <string name="descending_order">Descending Order</string>
     <string name="ascending_order">Ascending Order</string>
     <string name="rs">\u20B9</string>
-    <string name="search_your_product">Search your product</string>
+    <string name="search_your_movie">Search Movie Name</string>
     <string name="full_name">Full Name</string>
+    <string name="register_">User Does not  exit, please Register</string>
+    <string name="date_release">Date Release</string>
+    <string name="textview">TextView</string>
+    <string name="moviename">movieName</string>
+    <string name="sort">Sort</string>
 </resources>

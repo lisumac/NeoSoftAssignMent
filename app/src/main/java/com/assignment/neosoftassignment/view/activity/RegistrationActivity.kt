@@ -22,6 +22,9 @@ class RegistrationActivity : AppCompatActivity(), OnClickListnerLogin {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // setContentView(R.layout.activity_registration)
+        if (supportActionBar != null) {
+            supportActionBar!!.hide();
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
         binding.lifecycleOwner = this
         binding.registrationVm = viewModel
