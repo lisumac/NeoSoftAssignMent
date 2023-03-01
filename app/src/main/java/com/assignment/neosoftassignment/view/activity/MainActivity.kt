@@ -8,10 +8,10 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
-import androidx.paging.PagingDataAdapter
+import androidx.paging.PagingData
+import androidx.paging.filter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.assignment.neosoftassignment.R
 import com.assignment.neosoftassignment.databinding.ActivityMainBinding
@@ -24,7 +24,10 @@ import com.assignment.neosoftassignment.viewModel.DashBoardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -32,82 +35,99 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner {
     lateinit var binding: ActivityMainBinding
     var movieList: ArrayList<MovieResponseItem> = ArrayList()
     val viewModel: DashBoardViewModel by viewModels()
-    private var movies: PagedList<MovieResponseItem>? = null
-    lateinit var adapter: MovieListAdapter
     lateinit var manager: LinearLayoutManager
-
+    var issearchClicked = false
+    lateinit var list_Movies: Flow<PagingData<MovieResponseItem>>
+    lateinit var moviesAdapter: MoviesPagedListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (supportActionBar != null) {
             supportActionBar!!.hide();
         }
+        Log.e("TAG", ":activity Created ")
 
         inIt()
         setUpRecyclerview()
         onClicklistner()
-        onSrollView()
-
-
-    }
-
-    private fun onSrollView() {
 
 
     }
 
 
     private fun setUpRecyclerview() {
-        binding.progressBar.progress = 8
-        viewModel.searchdata("")
+        Log.e("TAG", ":activity setupRecylerView ")
+
         manager = LinearLayoutManager(this)
         binding.rvMovieList.layoutManager = manager
-        /* viewModel.movieListLiveData.observe(this) { it ->
-             Log.e("TAG", "setUpRecyclerview: $it")
-             movieList = it as ArrayList<MovieResponseItem>
-             adapter = MovieListAdapter(it)
-             binding.rvMovieList.adapter = adapter
-             adapter.onItemOnClickListner = this
-
-
-         }*/
-       val moviesAdapter = MoviesPagedListAdapter()
-        moviesAdapter.onItemOnClickListner =this
+        moviesAdapter = MoviesPagedListAdapter()
+        moviesAdapter.onItemOnClickListner = this
         binding.rvMovieList.adapter = moviesAdapter
-
-
-
-
-
-
 
         binding.rvMovieList.adapter = moviesAdapter!!.withLoadStateFooter(
             MainLoadStateAdapter()
         )
 
+/* if (issearchClicked) {
+                    Log.e("TAG", "setUpRecyclerview: 2")
+                    moviesAdapter.submitData(lifecycle, PagingData.empty())
+
+                } else {
+                    Log.e("TAG", "setUpRecyclerview: 11")*/
+
         lifecycleScope.launch {
-           /* viewModel.getpagedata.collectLatest {
-                moviesAdapter.submitData(it)
-            }*/
-            Log.e("TAG", "setUpRecyclerview: ", )
-            viewModel.flowsearch.collectLatest {
-                moviesAdapter.submitData(it)
+            Log.e("TAG", "setUpRecyclerview: 1")
+
+
+            viewModel.list_Movies.collectLatest {
+                if (issearchClicked) {
+                    Log.e("TAG", "setUpRecyclerview: 2")
+                    moviesAdapter.submitData(lifecycle, PagingData.empty())
+
+                } else {
+                    moviesAdapter.submitData(it)
+                    moviesAdapter.notifyDataSetChanged()
+                    binding.rvMovieList.invalidate()
+                }
             }
 
         }
 
     }
 
+
     private fun onClicklistner() {
+        binding.searchView.setOnClickListener {
 
-        binding.searchView.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                viewModel.searchdata(editable.toString().trim())
-               // adapter.filterList(movieList)
 
-            }
-        })
+        }
+        binding.tvSortItem.setOnClickListener {
+            Log.e("TAG", "onClicklistner: ")
+            issearchClicked = true
+            /*CoroutineScope(Dispatchers.IO).launch {
+                viewModel.searchdata("The Kid")
+            }*/
+            viewModel.getSearchList()
+
+            //moviesAdapter.submitData(lifecycle, PagingData.empty())
+        }
+
+        /* binding.searchView.addTextChangedListener(object : TextWatcher {
+             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+             }
+
+             override fun afterTextChanged(editable: Editable) {
+                 Log.e("TAG", "afterTextChanged: " + editable.toString().trim())
+
+                     issearchClicked = true
+                     Log.e("TAG", "afterTextChanged:1 ", )
+                     viewModel.searchdata(editable.toString().trim())
+
+                 moviesAdapter.submitData(lifecycle, PagingData.empty())
+
+             }
+         })*/
 
         binding.ivLikeMovieList.setOnClickListener {
             val intent = Intent(this, FavouriteMovieListActivity::class.java)
@@ -116,10 +136,13 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner {
     }
 
     private fun inIt() {
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.dashboardVm = viewModel
         binding.progressBar.progress = 0
+        Log.e("TAG", ":activity init ")
+
     }
 
     override fun onItemClickListener(product: MovieResponseItem, position: Int) {

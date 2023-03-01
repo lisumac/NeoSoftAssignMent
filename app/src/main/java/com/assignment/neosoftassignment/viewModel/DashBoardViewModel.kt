@@ -1,5 +1,6 @@
 package com.assignment.neosoftassignment.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectIndexed
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,46 +23,17 @@ import javax.inject.Inject
 class DashBoardViewModel @Inject constructor(private val repository: MovieRepository) :
     ViewModel() {
 
-    lateinit var flowsearch: Flow<PagingData<MovieResponseItem>>
+      lateinit var list_Movies: Flow<PagingData<MovieResponseItem>>
     val movieListLiveData: LiveData<List<MovieResponseItem>>
         get() = repository.movieResponse
 
     init {
+        Log.e("TAG", ":ViewModelInialized " )
         CoroutineScope(Dispatchers.IO).launch {
-
-
-            /*val pagedListConfig = PagedList.Config.Builder().setEnablePlaceholders(true)
-                .setPrefetchDistance(20)
-                .setPageSize(10).build()
-            pagedListLiveData = LivePagedListBuilder(repository.getMoviePagingList(), pagedListConfig).build()*/
-
-            // pagedListLiveData = repository.getElementsLiveData()
-
+            searchdata("")
         }
 
-
-    }
-
-   /* val dao = repository.getMoviePagingList()
-    val getpagedata = Pager(
-        PagingConfig(
-            pageSize = 20,
-            enablePlaceholders = false,
-            initialLoadSize = 20
-        ),
-    ) {
-        MainPagingSource(dao, "", false)
-    }.flow.cachedIn(viewModelScope)*/
-    fun addToFavList(favourite: Boolean, movieResponsePrimaryKey: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.addToFav(favourite, movieResponsePrimaryKey)
-
-        }
-    }
-
-    fun searchdata(search: String) {
-
-        val dao = repository.getMoviePagingList()
+     /*  val dao = repository.getMoviePagingList()
         val getpagedata = Pager(
             PagingConfig(
                 pageSize = 20,
@@ -66,14 +41,50 @@ class DashBoardViewModel @Inject constructor(private val repository: MovieReposi
                 initialLoadSize = 20
             ),
         ) {
-            if (!search.isNullOrEmpty()){
-                MainPagingSource(dao, search, true)
-            }else{
-                MainPagingSource(dao, "", false)
-            }
-
+            MainPagingSource(dao, "", true)
         }.flow.cachedIn(viewModelScope)
-        flowsearch = getpagedata
+        list_Movies = getpagedata*/
+    }
 
+
+    fun addToFavList(favourite: Boolean, movieResponsePrimaryKey: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.addToFav(favourite, movieResponsePrimaryKey)
+
+        }
+    }
+
+    suspend  fun  searchdata(search: String) {
+        Log.e("TAG", "search-data: $search")
+
+           /* val dao = repository.getMoviePagingList()
+            val getpagedata = Pager(
+                PagingConfig(
+                    pageSize = 20,
+                    enablePlaceholders = false,
+                    initialLoadSize = 20
+                ),
+            ) {
+                Log.e("TAG", "paged: $search")
+                if (search.isNullOrEmpty()){
+                    Log.e("TAG", "list_Movies: $search")
+                    MainPagingSource(dao, "", false)
+                }else{
+                    Log.e("TAG", "list_Movies: $search")
+                    MainPagingSource(dao, search, true)
+
+                }
+
+            }.flow.cachedIn(viewModelScope)*/
+
+          // list_Movies = getpagedata
+        Log.e("TAG", "list_Movies:rgh ::::"+list_Movies )
+
+
+
+
+    }
+    fun getSearchList(){
+        repository.getSearchList("The Kid")
     }
 }

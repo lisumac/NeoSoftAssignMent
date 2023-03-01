@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.assignment.neosoftassignment.viewModel.SplashViewModel
 import com.assignment.neosoftassignment.R
 import com.assignment.neosoftassignment.databinding.ActivitySplashScreenBinding
+import com.assignment.neosoftassignment.view.adapter.MovieListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -25,6 +27,7 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen)
         binding.splashVm = viewModel
 
+       // checkMovieData()
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -32,4 +35,15 @@ class SplashScreenActivity : AppCompatActivity() {
         }, 3000)
 
     }
+
+    private fun checkMovieData() {
+        viewModel.movieListLiveData.observe(this) { it ->
+            if (!it.isNullOrEmpty()) {
+
+            }
+        }
+
+
+    }
+
 }

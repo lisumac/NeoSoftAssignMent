@@ -41,7 +41,6 @@ class FavouriteMovieListActivity : AppCompatActivity(), OnItemOnClickListner {
                 it.isFavourite
                 if (it.isFavourite) {
                     favMovieList.add(it)
-                    Log.e("Favourite_List", "setUpRecyclerview: $it")
                     adapter = MovieListAdapter(favMovieList)
                     binding.rlMovies.adapter = adapter
                     adapter.onItemOnClickListner = this

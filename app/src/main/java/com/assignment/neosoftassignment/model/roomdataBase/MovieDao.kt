@@ -26,7 +26,7 @@ interface MovieDao {
 
     @Query("SELECT * FROM movielist WHERE name LIKE :search")
     fun loadHamsters(search: String?): List<MovieResponseItem>
-    @Query("SELECT * FROM movielist WHERE (name LIKE :queryString) OR (description LIKE :queryString) ORDER BY movieResponsePrimaryKey  ASC LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM movielist WHERE (name LIKE :queryString) ORDER BY movieResponsePrimaryKey  ASC LIMIT :limit OFFSET :offset")
     suspend fun getSearchPagedList(limit: Int, offset: Int, queryString:String): List<MovieResponseItem>
 }
 

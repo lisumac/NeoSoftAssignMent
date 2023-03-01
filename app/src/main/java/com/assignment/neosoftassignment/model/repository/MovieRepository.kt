@@ -58,7 +58,9 @@ class MovieRepository @Inject constructor(
                 }
 
             }
-            dao.insertAll(result.body()!!)
+            if (dao.getAll()!!.isNullOrEmpty()) {
+                dao.insertAll(result.body()!!)
+            }
 
 
         } else {
@@ -72,23 +74,15 @@ class MovieRepository @Inject constructor(
     }
 
 
-
-    fun getMoviePagingList() :MovieDao{
-     return dao
-    }
-
-  /*  fun getElementsLiveData(): LiveData<PagedList<MovieResponseItem>> {
-        val pagedListConfig = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setPageSize(20)
-            .setPrefetchDistance(2).build()
-
-        // val data = dao.getAllMovies()
-//        return LivePagedListBuilder(data, 10).build() // 10 is page size
-       // return LivePagedListBuilder(dao.getAllMovies(), pagedListConfig).build()
+    fun getSearchList(search: String) {
+        dao.loadHamsters(search)
 
     }
-*/
+
+    fun getMoviePagingList(): MovieDao {
+        return dao
+    }
+
 
     suspend fun addToFav(isFav: Boolean, id: Int) {
         dao.update(isFav, id)

@@ -45,10 +45,8 @@ class MoviesPagedListAdapter: PagingDataAdapter<MovieResponseItem, MoviesPagedLi
 
                 if (movie.isFavourite) {
                     binding.imgMovieFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                    onItemOnClickListner.onItemClickListener(movie, position)
                 } else {
                     binding.imgMovieFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                    onItemOnClickListner.onItemClickListener(movie, position)
 
                 }
             }
@@ -75,17 +73,6 @@ class MoviesPagedListAdapter: PagingDataAdapter<MovieResponseItem, MoviesPagedLi
 
     }
 
-    private val itemCallback: DiffUtil.ItemCallback<MovieResponseItem> =
-        object : DiffUtil.ItemCallback<MovieResponseItem>() {
-            override fun areItemsTheSame(oldItem: MovieResponseItem, newItem: MovieResponseItem): Boolean {
-                return oldItem.movieResponsePrimaryKey === newItem.movieResponsePrimaryKey
-            }
-
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: MovieResponseItem, newItem: MovieResponseItem): Boolean {
-                return oldItem.equals(newItem)
-            }
-        }
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieResponseItem>() {
             override fun areItemsTheSame(oldItem: MovieResponseItem, newItem: MovieResponseItem): Boolean {
@@ -107,4 +94,5 @@ class MoviesPagedListAdapter: PagingDataAdapter<MovieResponseItem, MoviesPagedLi
         binding = MovieItemListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MoviesViewHolder(binding)
     }
+
 }

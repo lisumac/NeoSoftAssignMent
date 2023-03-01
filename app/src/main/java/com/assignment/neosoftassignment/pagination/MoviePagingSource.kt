@@ -16,14 +16,11 @@ class MainPagingSource(private val dao: MovieDao, private  val search: String,pr
             Log.d("MainPagingSource", "load: $page")
             val entities = if (b){
                 dao.getSearchPagedList(params.loadSize, page * params.loadSize,search)
-
             }else{
                 dao.getPagedList(params.loadSize, page * params.loadSize)
 
             }
-          /*  val entities = dao.getPagedList(params.loadSize, page * params.loadSize)
 
-            val entitie = dao.getSearchPagedList(params.loadSize, page * params.loadSize,"yojiop")*/
             Log.d("MainPagingSource", "load:List sera $entities")
 
 

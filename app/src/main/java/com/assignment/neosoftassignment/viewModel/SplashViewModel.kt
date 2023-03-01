@@ -24,7 +24,7 @@ class SplashViewModel @Inject constructor(private val repository: MovieRepositor
         Log.e("TAG", ": Start :::1", )
         CoroutineScope(Dispatchers.IO).launch {
             kotlinx.coroutines.delay(100)
-            Log.e("TAG", ": Started:::2", )
+
             repository.getMovieList()
         }
         CoroutineScope(Dispatchers.IO).launch {
@@ -35,6 +35,7 @@ class SplashViewModel @Inject constructor(private val repository: MovieRepositor
 
     suspend fun getAll(){
         Log.e("TAG", "getAll: "+repository.getMovieListFromDataBase() )
+
     }
 
 }

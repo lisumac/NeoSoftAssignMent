@@ -36,11 +36,12 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
+                android:maxLines="2"
                 android:text="@string/moviename"
-                android:textColor="@color/txtColorTitle"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/img_movie_favorite"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +64,7 @@
                 android:src="@drawable/ic_round_star_24"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/tvMovieName"
-                app:tint="@color/iconColor" />
+                app:tint="@color/star_tint" />
 
             <TextView
                 android:id="@+id/tvRate"
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/textview"
-                android:textColor="@color/txtColorOne"
+                android:textColor="@color/black"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imgVote"
@@ -87,7 +88,7 @@
                 android:src="@drawable/ic_round_language_24"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/imgVote"
-                app:tint="@color/iconColor" />
+                app:tint="@color/color_tint" />
 
             <TextView
                 android:id="@+id/tvLang"
@@ -95,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/textview"
-                android:textColor="@color/txtColorOne"
+                android:textColor="@color/black"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imgLang"
@@ -110,7 +111,7 @@
                 android:src="@drawable/ic_round_date_range_24"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/imgLang"
-                app:tint="@color/iconColor" />
+                app:tint="@android:color/holo_red_dark" />
 
             <TextView
                 android:id="@+id/tvMovieDateRelease"
@@ -118,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/date_release"
-                android:textColor="@color/txtColorOne"
+                android:textColor="@color/black"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imgDate"
