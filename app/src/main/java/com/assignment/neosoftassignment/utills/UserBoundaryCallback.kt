@@ -1,12 +1,5 @@
 package com.assignment.neosoftassignment.utills
 
-import androidx.paging.PagedList
-import com.assignment.neosoftassignment.model.responseModel.MovieResponseItem
-import com.assignment.neosoftassignment.model.roomdataBase.MovieDao
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-
 class ContributionBoundaryCallback{
 /*constructor(val userDao: MovieDao?) :
     PagedList.BoundaryCallback<MovieResponseItem?>() {

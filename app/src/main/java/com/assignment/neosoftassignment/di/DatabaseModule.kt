@@ -3,9 +3,9 @@ package com.assignment.neosoftassignment.di
 import android.content.Context
 import androidx.room.Room
 import com.assignment.neosoftassignment.model.roomdataBase.AppDatabase
-import com.assignment.neosoftassignment.model.roomdataBase.MovieDao
+import com.assignment.neosoftassignment.model.roomdataBase.dao.MovieDao
 import com.assignment.neosoftassignment.model.roomdataBase.RegisterDatabase
-import com.assignment.neosoftassignment.model.roomdataBase.RegisterDatabaseDao
+import com.assignment.neosoftassignment.model.roomdataBase.dao.RegisterDatabaseDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

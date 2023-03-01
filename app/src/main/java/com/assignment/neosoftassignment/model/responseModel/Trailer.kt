@@ -2,12 +2,8 @@ package com.assignment.neosoftassignment.model.responseModel
 
 import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.assignment.neosoftassignment.model.responseModel.Thumbnail
-import com.assignment.neosoftassignment.model.roomdataBase.ThumbnailConverter
+import com.assignment.neosoftassignment.model.roomdataBase.converters.ThumbnailConverter
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

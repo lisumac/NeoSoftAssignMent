@@ -1,10 +1,6 @@
 package com.assignment.neosoftassignment.model.responseModel
 
-import androidx.room.*
-import com.assignment.neosoftassignment.model.roomdataBase.GenreConverters
-import com.assignment.neosoftassignment.model.roomdataBase.MovieConverters
-
- class MovieResponse : ArrayList<MovieResponseItem>()
+class MovieResponse : ArrayList<MovieResponseItem>()
 
 
 /*

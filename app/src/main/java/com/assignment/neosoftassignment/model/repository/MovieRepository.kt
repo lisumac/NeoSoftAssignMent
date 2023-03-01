@@ -3,16 +3,13 @@ package com.assignment.neosoftassignment.model.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.paging.*
-import com.assignment.neosoftassignment.model.pagination.MoviesPagingSource
 
 import com.assignment.neosoftassignment.model.responseModel.Creator
 import com.assignment.neosoftassignment.model.responseModel.MovieResponseItem
 import com.assignment.neosoftassignment.model.responseModel.Thumbnail
 import com.assignment.neosoftassignment.model.responseModel.Trailer
 import com.assignment.neosoftassignment.model.retrofit.ApiService
-import com.assignment.neosoftassignment.model.roomdataBase.MovieDao
+import com.assignment.neosoftassignment.model.roomdataBase.dao.MovieDao
 import javax.inject.Inject
 
 
@@ -21,8 +18,8 @@ class MovieRepository @Inject constructor(
     private val dao: MovieDao
 ) {
 
-    var pagedListLiveData: LiveData<PagedList<MovieResponseItem>>? = null
     private val _movieList = MutableLiveData<List<MovieResponseItem>>()
+    private val searched_movie_List = MutableLiveData<List<MovieResponseItem>>()
     private val error = MutableLiveData<String>()
     val movieResponse: LiveData<List<MovieResponseItem>>
         get() = _movieList
@@ -74,9 +71,11 @@ class MovieRepository @Inject constructor(
     }
 
 
-    fun getSearchList(search: String) {
-        dao.loadHamsters(search)
+    fun getSearchLists(search: String): List<MovieResponseItem> {
+        Log.e("TAG", "setUpRecyclerview: " + dao.getSearch(search))
+        Log.e("TAG", "setUpRecyclerview: $search")
 
+        return dao.getSearch(search)
     }
 
     fun getMoviePagingList(): MovieDao {
@@ -88,5 +87,11 @@ class MovieRepository @Inject constructor(
         dao.update(isFav, id)
 
     }
+
+
+    suspend fun getSortedAscOrder(isAsc: Boolean?): List<MovieResponseItem> {
+      return  dao.getSortedListByName(isAsc)
+    }
+
 
 }

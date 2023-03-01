@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.*
 import com.assignment.neosoftassignment.model.roomdataBase.*
+import com.assignment.neosoftassignment.model.roomdataBase.converters.*
 import kotlinx.android.parcel.Parcelize
 import org.jetbrains.annotations.NotNull
 

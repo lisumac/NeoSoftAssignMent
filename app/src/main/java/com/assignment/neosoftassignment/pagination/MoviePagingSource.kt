@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.assignment.neosoftassignment.model.responseModel.MovieResponseItem
-import com.assignment.neosoftassignment.model.roomdataBase.MovieDao
+import com.assignment.neosoftassignment.model.roomdataBase.dao.MovieDao
 
 import kotlinx.coroutines.delay
 
-class MainPagingSource(private val dao: MovieDao, private  val search: String,private  val b: Boolean) : PagingSource<Int, MovieResponseItem>() {
+class MainPagingSource(private val dao: MovieDao, private  val search: String, private  val b: Boolean) : PagingSource<Int, MovieResponseItem>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResponseItem> {
         val page = params.key ?: 0
 

@@ -3,6 +3,7 @@ package com.assignment.neosoftassignment.view.activity
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,7 @@ class FavouriteMovieListActivity : AppCompatActivity(), OnItemOnClickListner {
             it.forEach {
                 it.isFavourite
                 if (it.isFavourite) {
+                    binding.prgBarMoviesFav.visibility = View.GONE
                     favMovieList.add(it)
                     adapter = MovieListAdapter(favMovieList)
                     binding.rlMovies.adapter = adapter
@@ -55,6 +57,7 @@ class FavouriteMovieListActivity : AppCompatActivity(), OnItemOnClickListner {
     private fun initBindingAndVm() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_favourite_movie_list)
         viewModel.also { binding.favouriteVm = it }
+        binding.prgBarMoviesFav.visibility = View.VISIBLE
 
     }
 

@@ -1,6 +1,7 @@
 package com.assignment.neosoftassignment.view.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,6 @@ import com.assignment.neosoftassignment.onClickListner.OnItemOnClickListner
 class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
     RecyclerView.Adapter<MovieListAdapter.PersonDetailsViewHolder>() {
     lateinit var onItemOnClickListner: OnItemOnClickListner
-    private var filteredProductNameList: List<MovieResponseItem>? = null
     lateinit var binding: MovieItemListLayoutBinding
 
     class PersonDetailsViewHolder(private val binding: MovieItemListLayoutBinding) :
@@ -42,10 +42,8 @@ class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
 
                 if (movie.isFavourite) {
                     binding.imgMovieFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                    onItemOnClickListner.onItemClickListener(movie, position)
                 } else {
                     binding.imgMovieFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                    onItemOnClickListner.onItemClickListener(movie, position)
 
                 }
             }
@@ -93,14 +91,17 @@ class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
 
     fun sortedList(movie_list: ArrayList<MovieResponseItem>) {
 
-        this.movieList = movie_list
+        movieList.clear()
+        movieList .addAll(movie_list) ;
         notifyDataSetChanged()
     }
 
 
     fun filterList(filterdNames: ArrayList<MovieResponseItem>) {
-
-        this.movieList = filterdNames;
+        Log.e("TAG", "filterList: "+filterdNames.size )
+        movieList.clear()
+        movieList .addAll(filterdNames) ;
+        Log.e("TAG", "filterList:movieList "+movieList.size )
         notifyDataSetChanged();
     }
 }

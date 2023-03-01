@@ -19,7 +19,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(private val repository: RegisterRepository) : ViewModel() {
-     fun validateUserName(userName: TextInputEditText, userNameTextInputLayout: TextInputLayout): Boolean {
+    var  genereMovie = ArrayList<String>()
+    init {
+
+        genereMovie = ArrayList()
+    }
+
+    fun validateUserName(userName: TextInputEditText, userNameTextInputLayout: TextInputLayout): Boolean {
         if (userName.text.toString().trim().isEmpty()) {
             userNameTextInputLayout.error = "Required Field!"
             userName.requestFocus()
@@ -106,7 +112,8 @@ class RegistrationViewModel @Inject constructor(private val repository: Register
         email: TextInputEditText,
         password: TextInputEditText
     ) {
-        val userDetailsEntity = RegisterEntity(0,userName.text.toString().trim(),email.text.toString(),password.text.toString())
+
+        val userDetailsEntity = RegisterEntity(0,userName.text.toString().trim(),email.text.toString(),password.text.toString(),genereMovie as ArrayList<String>)
         CoroutineScope(Dispatchers.IO).launch {
             repository.insert(userDetailsEntity)
         }

@@ -1,7 +1,6 @@
-package com.assignment.neosoftassignment.model.roomdataBase
+package com.assignment.neosoftassignment.model.roomdataBase.converters
 
 import androidx.room.TypeConverter
-import com.assignment.neosoftassignment.model.responseModel.AggregateRating
 import com.google.gson.Gson
 
 class ThumbnailConverter {
