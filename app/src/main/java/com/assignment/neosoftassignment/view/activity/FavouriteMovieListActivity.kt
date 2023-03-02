@@ -66,5 +66,9 @@ class FavouriteMovieListActivity : AppCompatActivity(), OnItemOnClickListner {
 
     }
 
+    override fun navigateToMovieDetails(product: MovieResponseItem, position: Int) {
+
+    }
+
 
 }

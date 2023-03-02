@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.assignment.neosoftassignment.model.repository.RegisterRepository
 import com.assignment.jetpectcompent.utills.FieldValidator
+import com.assignment.neosoftassignment.Constants
 import com.assignment.neosoftassignment.Constants.currentUserName
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -78,12 +79,13 @@ class LoginViewModel @Inject constructor(private val repository: RegisterReposit
        }
    }*/
     fun login(email: String, password: String) {
+
         CoroutineScope(Dispatchers.IO).launch {
+
             Log.e("TAG", "login:UserName $email")
             val usersNames = email?.let { repository.getUserName(it) }
             Log.e("TAG", "login:UserNameFromrepos $email")
             if (usersNames != null) {
-
                 currentUserName =usersNames.email
                 _navigatetoMovieDetails.postValue(usersNames?.passwrd == password)
             } else {

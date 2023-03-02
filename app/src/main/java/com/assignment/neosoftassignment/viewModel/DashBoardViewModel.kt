@@ -74,33 +74,6 @@ class DashBoardViewModel @Inject constructor(
         }
     }
 
-    suspend fun searchdata(search: String) {
-        Log.e("TAG", "search-data: $search")
-
-        /* val dao = repository.getMoviePagingList()
-         val getpagedata = Pager(
-             PagingConfig(
-                 pageSize = 20,
-                 enablePlaceholders = false,
-                 initialLoadSize = 20
-             ),
-         ) {
-             Log.e("TAG", "paged: $search")
-             if (search.isNullOrEmpty()){
-                 Log.e("TAG", "list_Movies: $search")
-                 MainPagingSource(dao, "", false)
-             }else{
-                 Log.e("TAG", "list_Movies: $search")
-                 MainPagingSource(dao, search, true)
-
-             }
-
-         }.flow.cachedIn(viewModelScope)*/
-
-        // list_Movies = getpagedata
-
-
-    }
 
 
     fun getSearchList(search: String) {
@@ -112,18 +85,14 @@ class DashBoardViewModel @Inject constructor(
     }
 
     suspend fun getAscOrder(isAsc: Boolean?) {
-        Log.e("TAG", "getAscOrder: $isAsc")
         val ascOrderListByMovieName = repository.getSortedAscOrder(isAsc)
-        Log.e("TAG", "getAscOrder: $ascOrderListByMovieName")
         movieListASCList?.postValue(ascOrderListByMovieName)
-        Log.e("TAG", "getAscOrder: tb$movieListASCList")
     }
 
     fun getUserLikeMovie() {
         CoroutineScope(Dispatchers.IO).launch{
             val users = registerRepository.getAllUsers()
             getUserList!!.postValue(users)
-            Log.e("TAG", "getLikeMovie:users $users")
 
         }
 

@@ -2,6 +2,7 @@ package com.assignment.neosoftassignment.model.roomdataBase.dao
 
 import androidx.room.*
 import com.assignment.neosoftassignment.model.responseModel.MovieResponseItem
+import com.assignment.neosoftassignment.model.responseModel.loginAndRegistration.RegisterEntity
 
 @Dao
 interface MovieDao {
@@ -39,5 +40,8 @@ interface MovieDao {
         @Query("select * from movielist ORDER BY name DSC")*/
     @Query("SELECT * FROM movielist ORDER BY CASE WHEN :isAsc = 1 THEN name END ASC, CASE WHEN :isAsc = 0 THEN name END DESC")
     suspend fun getSortedListByName(isAsc: Boolean?): List<MovieResponseItem>
+
+    @Query("SELECT * FROM movielist WHERE movieResponsePrimaryKey LIKE :primaryKey ")
+    suspend fun getMovieObj(primaryKey: Int): MovieResponseItem?
 }
 

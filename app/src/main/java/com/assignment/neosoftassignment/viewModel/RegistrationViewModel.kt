@@ -8,6 +8,7 @@ import com.assignment.jetpectcompent.utills.FieldValidator.isStringContainSpecia
 import com.assignment.jetpectcompent.utills.FieldValidator.isStringLowerAndUpperCase
 import com.assignment.jetpectcompent.utills.FieldValidator.isValidEmail
 import com.assignment.jetpectcompent.utills.toast
+import com.assignment.neosoftassignment.Constants.isNewUser
 import com.assignment.neosoftassignment.model.responseModel.loginAndRegistration.RegisterEntity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -112,7 +113,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Register
         email: TextInputEditText,
         password: TextInputEditText
     ) {
-
+        isNewUser = true
         val userDetailsEntity = RegisterEntity(0,userName.text.toString().trim(),email.text.toString(),password.text.toString(),genereMovie as ArrayList<String>)
         CoroutineScope(Dispatchers.IO).launch {
             repository.insert(userDetailsEntity)

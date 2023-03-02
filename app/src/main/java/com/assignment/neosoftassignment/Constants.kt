@@ -7,6 +7,7 @@ object Constants {
     const val movieList ="top250.json"
     var currentUserName =""
     var currentUserPrimaryKey =0
+    var isNewUser = false
     var currentuserInterest :ArrayList<String> = ArrayList()
 
 

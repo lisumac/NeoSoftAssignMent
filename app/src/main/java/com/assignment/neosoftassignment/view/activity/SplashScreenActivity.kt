@@ -27,7 +27,6 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen)
         binding.splashVm = viewModel
 
-       // checkMovieData()
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -36,14 +35,5 @@ class SplashScreenActivity : AppCompatActivity() {
 
     }
 
-    private fun checkMovieData() {
-        viewModel.movieListLiveData.observe(this) { it ->
-            if (!it.isNullOrEmpty()) {
-
-            }
-        }
-
-
-    }
 
 }

@@ -16,4 +16,8 @@
     <string name="textview">TextView</string>
     <string name="moviename">movieName</string>
     <string name="sort">Sort</string>
+    <string name="do_not_have_account_register_here">Do not have account? Register here</string>
+    <string name="you_already_have_a_account_login_here">You already have a account? Login here</string>
+    <string name="movie">movie</string>
+    <string name="sub_title">sub title</string>
 </resources>

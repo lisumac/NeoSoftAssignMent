@@ -40,18 +40,19 @@ class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
                     scale(Scale.FILL)
                 }
 
-                if (movie.isFavourite) {
+                /*if (movie.isFavourite) {
                     binding.imgMovieFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                 } else {
                     binding.imgMovieFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
 
-                }
+                }*/
             }
 
 
             binding.imgMovieFavorite.setOnClickListener {
                 if (!movie.isFavourite) {
                     movie.isFavourite = true
+
                     binding.imgMovieFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
                     onItemOnClickListner.onItemClickListener(movie, position)
                 } else {
@@ -81,7 +82,9 @@ class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
     override fun onBindViewHolder(holder: PersonDetailsViewHolder, position: Int) {
         val product = movieList[position]
         holder.bind(product, onItemOnClickListner, position)
-
+        holder.itemView.setOnClickListener {
+            onItemOnClickListner.navigateToMovieDetails(product,position)
+        }
 
     }
 
@@ -92,16 +95,16 @@ class MovieListAdapter(var movieList: ArrayList<MovieResponseItem>) :
     fun sortedList(movie_list: ArrayList<MovieResponseItem>) {
 
         movieList.clear()
-        movieList .addAll(movie_list) ;
+        movieList.addAll(movie_list);
         notifyDataSetChanged()
     }
 
 
     fun filterList(filterdNames: ArrayList<MovieResponseItem>) {
-        Log.e("TAG", "filterList: "+filterdNames.size )
+        Log.e("TAG", "filterList: " + filterdNames.size)
         movieList.clear()
-        movieList .addAll(filterdNames) ;
-        Log.e("TAG", "filterList:movieList "+movieList.size )
+        movieList.addAll(filterdNames);
+        Log.e("TAG", "filterList:movieList " + movieList.size)
         notifyDataSetChanged();
     }
 }

@@ -31,10 +31,7 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner, OnClickListner {
     lateinit var binding: ActivityMainBinding
     var movieList: ArrayList<MovieResponseItem> = ArrayList()
     val viewModel: DashBoardViewModel by viewModels()
-    lateinit var list_Movies: Flow<PagingData<MovieResponseItem>>
     lateinit var bottomSheetDialog: SortingBottomSheetDialog
-
-    /*lateinit var moviesAdapter: MoviesPagedListAdapter*/
     lateinit var moviesAdapter: MovieListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,31 +50,7 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner, OnClickListner {
 
 
     private fun setUpRecyclerview() {
-        Log.e("TAG", ":activity setupRecylerView ")
 
-
-        /*binding.rvMovieList.adapter = moviesAdapter!!.withLoadStateFooter(
-            MainLoadStateAdapter()
-        )*/
-
-
-        /* lifecycleScope.launch {
-
-
-
-             viewModel.list_Movies.collectLatest {
-                 if (issearchClicked) {
-
-                     moviesAdapter.submitData(lifecycle, PagingData.empty())
-
-                 } else {
-                     moviesAdapter.submitData(it)
-                     moviesAdapter.notifyDataSetChanged()
-                     binding.rvMovieList.invalidate()
-                 }
-             }
-
-         }*/
 
         viewModel.getUserList?.observe(this) { it ->
             it.forEach {
@@ -94,14 +67,13 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner, OnClickListner {
             // movieList = it as ArrayList<MovieResponseItem>
             if (currentuserInterest.isEmpty()) {
                 populateList(it as ArrayList<MovieResponseItem>)
-            }else{
+            } else {
                 it.forEach {
                     it.genre.forEach { itg ->
                         currentuserInterest.forEach { inte ->
                             if (inte == itg) {
                                 map[it.movieResponsePrimaryKey] = it
 
-                                Log.e("TAG", "setUpRecyclerview: $it")
                             }
                         }
                     }
@@ -112,7 +84,6 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner, OnClickListner {
 
                 }
             }
-
 
 
         }
@@ -166,8 +137,6 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner, OnClickListner {
             }
 
             override fun afterTextChanged(editable: Editable) {
-                Log.e("TAG", "afterTextChanged: " + editable.toString().trim())
-
 
 
                 CoroutineScope(Dispatchers.IO).launch {
@@ -198,15 +167,18 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner, OnClickListner {
     }
 
     override fun onItemClickListener(product: MovieResponseItem, position: Int) {
-        Log.e("TAG", "onItemClickListener: "+product.genre )
         viewModel.addToFavList(product.isFavourite, product.movieResponsePrimaryKey, product.genre)
+    }
+
+    override fun navigateToMovieDetails(moviedetails: MovieResponseItem, position: Int) {
+        val intent = Intent(this, MovieDetailsActivity::class.java)
+        intent.putExtra("MOVE_DETAILS", moviedetails.movieResponsePrimaryKey)
+        startActivity(intent)
     }
 
     override fun getAscendingOrder() {
         binding.progressBar.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
-
-            Log.e("TAG", "onClicklistner:Asc ")
             viewModel.getAscOrder(true)
             bottomSheetDialog.dismiss()
 
@@ -217,7 +189,6 @@ class MainActivity : AppCompatActivity(), OnItemOnClickListner, OnClickListner {
         binding.progressBar.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
-            Log.e("TAG", "onClicklistner:c;DSC ")
             viewModel.getAscOrder(false)
             bottomSheetDialog.dismiss()
 
