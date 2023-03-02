@@ -56,15 +56,18 @@ class MovieDetailsViewModel @Inject constructor(private val repository: MovieRep
 
     fun insertToDb(favMovieList: ArrayList<MovieResponseItem>) {
         Log.e("TAG", "insertToDb: ", )
-        CoroutineScope(Dispatchers.IO).launch {
-            favMovieList.forEach {
-                if (it.isFavourite) {
-                    it.isFavourite = false
-                    repository.addToFav(it.isFavourite, it.movieResponsePrimaryKey)
 
+        CoroutineScope(Dispatchers.IO).launch {
+            for (i in 0 until favMovieList!!.size ) {
+                Log.e("TAG", "insertToDb: "+favMovieList[i] )
+                if (favMovieList[i].isFavourite) {
+                    Log.e("TAG", "insertToDb: "+favMovieList[i] )
+                    favMovieList[i].isFavourite= false
+                    repository.addToFav(favMovieList[i].isFavourite,favMovieList[i].movieResponsePrimaryKey)
+                    allDataUpdated = true
                 }
             }
-            allDataUpdated = true
+
         }
 
 

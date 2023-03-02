@@ -126,15 +126,15 @@ class MovieDetailsActivity : AppCompatActivity(), OnClickListnerLogin {
     }
 
     override fun loginButtonButtonOnclick() {
-        Log.e("TAG", "loginButtonButtonOnclick: " )
-        viewModel.insertToDb(favMovieList)
-        if (viewModel.allDataUpdated) {
+        Log.e("TAG", "loginButtonButtonOnclick: " +favMovieList.size)
+        // viewModel.insertToDb(favMovieList)
+       /* if (viewModel.allDataUpdated) {*/
             binding.prgBarMovies.visibility = View.GONE
 
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
-        }
+        //}
     }
 
     override fun login() {

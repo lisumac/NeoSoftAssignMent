@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="8"
-                        android:textColor="@color/txtColorOne"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/tvMovieRatingTitle"
                         app:layout_constraintStart_toEndOf="@+id/tvMovieRatingTitle" />
@@ -177,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Runtime: "
-                        android:textColor="@color/iconColor"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
